@@ -18,11 +18,31 @@ namespace Training {
         //this is your main class
         public static void Main(string[] args) {
             Console.WriteLine("Hello World!");
+
+            //Day1Examples();
+            Day2Examples();
+        }
+
+        public static void Day2Examples() {
             var day2 = new Day2();
             day2.Log("My message");
             day2.Log("My new message", 145);
-            
-            Day1Examples();
+
+            //C# is pass by ref for objects and pass by value for primitives
+            Day1 testItem = new Day1(3, "Test");
+
+            //passes a reference or pointer to the object into the method
+            //this has side-effects
+            Console.WriteLine($"Starting ID: {testItem.Id}");
+            day2.ChangeDay1(testItem);
+            Console.WriteLine($"Ending ID: {testItem.Id}");
+
+            int testInt = 3;
+            Console.WriteLine($"Starting int: {testInt}");
+            //can be changed with a reference type
+            //day2.WillChange(ref testInt);
+            day2.WontChange(testInt);
+            Console.WriteLine($"Ending int: {testInt}");
         }
 
         /// <summary>
