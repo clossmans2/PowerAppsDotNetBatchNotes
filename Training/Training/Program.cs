@@ -18,7 +18,10 @@ namespace Training {
         //this is your main class
         public static void Main(string[] args) {
             Console.WriteLine("Hello World!");
-
+            var day2 = new Day2();
+            day2.Log("My message");
+            day2.Log("My new message", 145);
+            
             Day1Examples();
         }
 
