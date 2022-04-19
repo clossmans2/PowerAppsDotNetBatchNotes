@@ -13,7 +13,6 @@ namespace Training.Data {
         public Bear(string name, string color) {
             this.Name = name;
             this.Color = color;
-            Console.WriteLine("Some test Code, to be deleted");
         }
 
         public string Move(int distance) {

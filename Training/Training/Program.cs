@@ -68,7 +68,7 @@ namespace Training {
             //very JS or python like, but can define variables as var
             var anything = "string";
             string name = "Test";
-            Console.WriteLine("Some test Code, to be deleted");
+
             bool _bool = true;
             char _char = 'A', _char2 = 'a';
 
@@ -109,7 +109,7 @@ namespace Training {
             //need tyo cast it to use dog specific methods and variables
             Dog sameDog = dog as Dog;
             Console.WriteLine($"Has collar: {sameDog.Collar}");
-            Console.WriteLine("Some test Code, to be deleted");
+
             Dog stillSameDog = (Dog)dog;
             Console.WriteLine($"Has collar: {stillSameDog.Collar}");
 
@@ -128,7 +128,7 @@ namespace Training {
             StaticClass c2 = new StaticClass("Bob");
             StaticClass c3 = new StaticClass("Joe");
             StaticClass.count = StaticClass.count + 1; // dont need an instance of the class
-            Console.WriteLine("Some test Code, to be deleted");
+
             Console.WriteLine($"{c1.Name}: " + c1.NumOfClasses());
             Console.WriteLine($"{c2.Name}: " + c2.NumOfClasses());
             Console.WriteLine($"{c3.Name}: " + c3.NumOfClasses());

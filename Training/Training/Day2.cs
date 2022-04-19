@@ -9,7 +9,6 @@ namespace Training
     public class Day2 {
         public void Log(string msg) {
             Console.WriteLine(msg);
-            Console.WriteLine("Some test Code, to be deleted");
         }
 
         public void Log(int msg) {
@@ -22,7 +21,6 @@ namespace Training
 
         public void Log(float msg) {
             Console.WriteLine(msg);
-            Console.WriteLine("Some test Code, to be deleted");
         }
 
         public void Log(object msg) {
