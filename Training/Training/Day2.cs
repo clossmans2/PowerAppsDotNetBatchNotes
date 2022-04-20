@@ -6,53 +6,62 @@ using System.Threading.Tasks;
 
 namespace Training
 {
-    public class Day2
-    {
+    public class Day2 {
 
         // Method overloading
-        public void Log(string msg)
-        {
+        public void Log(string msg) {
             Console.WriteLine(msg);
         }
 
-        public void Log(int msg)
-        {
+        public void Log(int msg) {
             Console.WriteLine(msg);
         }
 
-        public void Log(double msg)
-        {
+        public void Log(double msg) {
             Console.WriteLine(msg);
         }
 
-        public void Log(float msg)
-        {
+        public void Log(float msg) {
             Console.WriteLine(msg);
         }
 
-        public void Log(object msg)
-        {
+        public void Log(object msg) {
             Console.WriteLine(msg.ToString());
         }
 
-        public void Log(string msg, int logType)
-        {
+        public void Log(string msg, int logType) {
             string[] myArray = new string[] { "Miles", "Seth", "Tom" };
             int[] numberArray = new int[] { 1, 2, 3, 4 };
-            
-            foreach (var item in myArray)
-            {
+
+            foreach (var item in myArray) {
                 //Log(item);
                 //Log(msg);
                 //Log(logType);
             }
-            
-            for (int i = 0; i < myArray.Length; i++)
-            {
+
+            for (int i = 0; i < myArray.Length; i++) {
                 //Log(myArray[i]);
                 myArray.ToList().ForEach(item => Log(msg));
             }
-            
+
+            //passes a reference, anything done to numArray2 will change numberArray and vice-versa
+            //int[] numArray2 = numberArray;
+
+            //two ways to copy an array
+            int[] numArray2 = new int[numberArray.Length];
+            //Array.Copy(numberArray, numArray2, numberArray.Length);
+            numberArray.CopyTo(numArray2, 0);
+            //numberArray.ToList().ForEach(Console.WriteLine);
+
+            numArray2[0] = 7;
+            numArray2[1] = 5;
+
+            int j = 0;
+            while (j < numberArray.Length) {
+                Console.WriteLine($"numberArray: {numberArray[j]}");
+                Console.WriteLine($"numArray2: {numArray2[j]}");
+                j++; //j = j + 1
+            }
 
             string[] arr = { "Apple", "Banana", "Orange" };
 
@@ -60,20 +69,16 @@ namespace Training
             List<int> arr3 = arr2.Cast<int>().ToList();
             arr3.ForEach(Console.WriteLine);
 
-            for (int i = 0; i < arr2.GetLength(0); i++)
-            {
-                for (int j = 0; j < arr2.GetLength(1); j++)
-                {
-                    Log(arr2[i,j]);
+            for (int i = 0; i < arr2.GetLength(0); i++) {
+                for (int k = 0; k < arr2.GetLength(1); k++) {
+                    Log(arr2[i, k]);
                 }
             }
         }
 
-        public void DoWhile()
-        {
+        public void DoWhile() {
             int i = 0;
-            do
-            {
+            do {
                 Console.WriteLine("Happens before the while check and then again after");
                 i += 1;
                 ++i;
@@ -85,34 +90,39 @@ namespace Training
 
 
         // If Else
-        public void IfExample(int numberToCheck)
-        {
-            if (numberToCheck < 0)
-            {
+        public void IfExample(int numberToCheck) {
+            if (numberToCheck < 0) {
 
-            }
-            else if (numberToCheck < 10)
-            {
+            } else if (numberToCheck < 10) {
 
-            }
-            else
-            {
+            } else {
 
             }
 
         }
 
+        //objects are pass by ref
+        public void ChangeDay1(Day1 item) {
+            item.Id = 75;
+        }
+
+        //are able to pass primitives as a reference
+        //public void WillChange(ref int num) {
+        //    num = 75;
+        //}
+
+        //primitives are pass by value
+        public void WontChange(int num) {
+            num = 75;
+        }
 
         // Case Switch Break Default Example
-        public string CaseSwitchExample(int testNum)
-        {
-            
+        public string CaseSwitchExample(int testNum) {
+
             string retVal = "";
 
-            try
-            {
-                switch (testNum)
-                {
+            try {
+                switch (testNum) {
                     case 1:
                         throw new ArgumentException();
                         break;
@@ -125,21 +135,13 @@ namespace Training
                         retVal = "Zero";
                         break;
                 }
-            }
-            catch (NullReferenceException ex)
-            {
+            } catch (NullReferenceException ex) {
                 Log($"A null reference exception occured {ex.Message}");
-            }
-            catch (ArgumentNullException ex)
-            {
+            } catch (ArgumentNullException ex) {
                 Log($"A argument null exception occured: {ex.Message}");
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 Log($"An exception occured outside of the types specified {ex.Message}");
-            }
-            finally
-            {
+            } finally {
                 Log("Finally step ran");
                 GC.Collect();
                 GC.WaitForPendingFinalizers();
@@ -147,26 +149,22 @@ namespace Training
 
             return retVal;
 
-            
+
         }
 
         // Throw
-        public void ThrowExample(int testNum)
-        {
-            if (testNum < 0)
-            {
+        public void ThrowExample(int testNum) {
+            if (testNum < 0) {
                 throw new Exception("You did something wrong!");
             }
         }
 
         // Custom Exceptions
         // Here be dragons
-        public class MyCustomException : Exception
-        {
-            public MyCustomException(string msg) : base(msg)
-            {
-
+        public class MyCustomException : Exception {
+            public MyCustomException(string msg) : base(msg) {
             }
         }
     }
 }
+
