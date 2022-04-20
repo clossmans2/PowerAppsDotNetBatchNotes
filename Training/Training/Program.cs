@@ -20,7 +20,59 @@ namespace Training {
             Console.WriteLine("Hello World!");
 
             //Day1Examples();
-            Day2Examples();
+            //Day2Examples();
+            Day3Examples();
+        }
+
+        public struct Day3Struct {
+            //public int id { get; init; }
+            //public string name { get; init; }
+            public int id;
+            public string name;
+            private string otherName;
+            private List<string> colors;
+
+            public Day3Struct(int id, string name) {
+                this.id = id;
+                this.name = name;
+                this.otherName = name;
+                colors = new List<string>();
+            }
+
+            public void AddId(int num) {
+                this.id += num;
+            }
+
+            public void AddColor(string color) {
+                colors.Add(color);
+            }
+
+            public void Print() {
+                foreach (string color in colors) {
+                    Console.WriteLine(color);
+                }
+            }
+        }
+
+        public static void WontChange(Day3Struct mystruct) {
+            mystruct.id = 75;
+        }
+
+        public static void Day3Examples() {
+            Day3Struct testStruct = new Day3Struct(1, "Joe");
+            Day3Struct testStruct2 = testStruct with { name = "Test", id = 4 };
+
+            Console.WriteLine(testStruct.id);
+            WontChange(testStruct);
+            Console.WriteLine(testStruct2.id);
+
+            testStruct.AddColor("blue");
+            testStruct.AddColor("red");
+
+            testStruct.Print();
+
+            //Day2 newDay2 = new Day2();
+            //newDay2.name = "My New Name";
         }
 
         public static void Day2Examples() {

@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 namespace Training
 {
     public class Day2 {
+        public string name = "";
+
         public void Log(string msg) {
             Console.WriteLine(msg);
         }
