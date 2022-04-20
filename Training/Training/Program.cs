@@ -25,7 +25,12 @@ namespace Training {
             //Day1Examples();
             //Day2Examples();
             //Day3Examples();
-            Day3Sorting();
+            //Day3Sorting();
+            // C:\Users\closs\source\repos\PowerAppsDotNetBatchNotes\Training\Training
+            // File Name is TextFile.txt
+            var filePath = "";
+            Day3 day3 = new Day3(filePath);
+            
         }
 
         public struct Day3Struct {
