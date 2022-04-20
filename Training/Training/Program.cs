@@ -18,11 +18,88 @@ namespace Training {
         //this is your main class
         public static void Main(string[] args) {
             Console.WriteLine("Hello World!");
+
+            //Day1Examples();
+            //Day2Examples();
+            Day3Examples();
+        }
+
+        public struct Day3Struct {
+            //public int id { get; init; }
+            //public string name { get; init; }
+            public int id;
+            public string name;
+            private string otherName;
+            private List<string> colors;
+
+            public Day3Struct(int id, string name) {
+                this.id = id;
+                this.name = name;
+                this.otherName = name;
+                colors = new List<string>();
+            }
+
+            public void AddId(int num) {
+                this.id += num;
+            }
+
+            public void AddColor(string color) {
+                colors.Add(color);
+            }
+
+            public void Print() {
+                foreach (string color in colors) {
+                    Console.WriteLine(color);
+                }
+            }
+        }
+
+        public static void WontChange(Day3Struct mystruct) {
+            mystruct.id = 75;
+        }
+
+        public static void Day3Examples() {
+            Day3Struct testStruct = new Day3Struct(1, "Joe");
+            Day3Struct testStruct2 = testStruct with { name = "Test", id = 4 };
+
+            Console.WriteLine(testStruct.id);
+            WontChange(testStruct);
+            Console.WriteLine(testStruct2.id);
+
+            testStruct.AddColor("blue");
+            testStruct.AddColor("red");
+
+            testStruct.Print();
+
+            //Day2 newDay2 = new Day2();
+            //newDay2.name = "My New Name";
+        }
+
+        public static void Day2Examples() {
             var day2 = new Day2();
+            day2.Log("My message");
+            day2.Log("My new message", 145);
+
+            //C# is pass by ref for objects and pass by value for primitives
+            Day1 testItem = new Day1(3, "Test");
+
+            //passes a reference or pointer to the object into the method
+            //this has side-effects
+            Console.WriteLine($"Starting ID: {testItem.Id}");
+            day2.ChangeDay1(testItem);
+            Console.WriteLine($"Ending ID: {testItem.Id}");
+
+            int testInt = 3;
+            Console.WriteLine($"Starting int: {testInt}");
+            //can be changed with a reference type
+            //day2.WillChange(ref testInt);
+            day2.WontChange(testInt);
+            Console.WriteLine($"Ending int: {testInt}");
+
             day2.ThrowExample(-1);
             //day2.Log("My message");
             //day2.Log("My new message", 145);
-            
+
             Day1Examples();
         }
 
