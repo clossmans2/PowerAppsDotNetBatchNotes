@@ -1,6 +1,10 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.Json;
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
+//using System.Configuration;
 using Training.Data;
 
 namespace Training {
@@ -20,17 +24,35 @@ namespace Training {
         //comment
         //this is your main class
         public static void Main(string[] args) {
-            Console.WriteLine("Hello World!");
+            //Console.WriteLine("Hello World!");
 
             //Day1Examples();
             //Day2Examples();
             //Day3Examples();
             //Day3Sorting();
-            // C:\Users\closs\source\repos\PowerAppsDotNetBatchNotes\Training\Training
-            // File Name is TextFile.txt
-            var filePath = "";
-            Day3 day3 = new Day3(filePath);
+            //Day3FileExamples d3 = new Day3FileExamples();
+            //var data = d3.ReadCsvData();
+            //foreach(var item in data) {
+            //    Console.WriteLine(item.ToString());
+            //}
+            //var charInput = Console.Read();
+            ////Console.WriteLine($"You pressed: {charInput}");
+            ////Console.WriteLine("Type something");
+            //var lineInput = Console.ReadLine();
+            ////Console.WriteLine($"You said: {lineInput}");
+            //var keyInput = Console.ReadKey();
+            //Console.WriteLine("Press any key to continue...");
+            //var appConfUsername = ConfigurationManager.AppSettings["UserName"];
+            //var appConfPassword = ConfigurationManager.AppSettings["Password"];
+            //Console.WriteLine($"My username is {appConfUsername} and my password is {appConfPassword}");
+
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false);
             
+            IConfiguration configuration = builder.Build();
+            var connString = configuration.GetSection("ConfigurationSetting").Get<ConfigurationSetting>();
+            Console.WriteLine(connString.ConnString);
         }
 
         public struct Day3Struct {
