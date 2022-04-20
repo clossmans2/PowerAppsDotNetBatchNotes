@@ -95,6 +95,12 @@ namespace Training {
             //day2.WillChange(ref testInt);
             day2.WontChange(testInt);
             Console.WriteLine($"Ending int: {testInt}");
+
+            day2.ThrowExample(-1);
+            //day2.Log("My message");
+            //day2.Log("My new message", 145);
+
+            Day1Examples();
         }
 
         /// <summary>
