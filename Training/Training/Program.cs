@@ -24,7 +24,8 @@ namespace Training {
 
             //Day1Examples();
             //Day2Examples();
-            Day3Examples();
+            //Day3Examples();
+            Day3Sorting();
         }
 
         public struct Day3Struct {
@@ -78,6 +79,28 @@ namespace Training {
             //newDay2.name = "My New Name";
         }
 
+        public static void Day3Sorting() {
+            Dog dog = new Dog("Test Dog", "Black", true);
+
+            //uses tostring by default
+            Console.WriteLine(dog);
+            Console.WriteLine(dog.ToString());
+
+            List<Dog> dogList = new List<Dog>();
+            dogList.Add(new Dog("Princess", "Orange", true));
+            dogList.Add(new Dog("Bob", "Blue", true));
+            dogList.Add(new Dog("Mark", "Black", false));
+
+            List<Dog> dogList2 = new List<Dog>(dogList);
+
+            Console.WriteLine($"[{String.Join(", ", dogList)}]");
+            Console.WriteLine($"[{String.Join(", ", dogList2)}]");
+            dogList.Sort();
+            dogList2.Sort(new DogComparer());
+            Console.WriteLine($"[{String.Join(", ", dogList)}]");
+            Console.WriteLine($"[{String.Join(", ", dogList2)}]");
+        }
+
         public static void Day2Examples() {
             var day2 = new Day2();
             day2.Log("My message");
@@ -92,7 +115,7 @@ namespace Training {
             day2.ChangeDay1(testItem);
             Console.WriteLine($"Ending ID: {testItem.Id}");
 
-            int testInt = 3;
+            int testInt = 0;
             Console.WriteLine($"Starting int: {testInt}");
             //can be changed with a reference type
             //day2.WillChange(ref testInt);
