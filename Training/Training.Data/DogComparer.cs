@@ -10,7 +10,7 @@ namespace Training.Data {
             if (x == null || y == null) {
                 return 0;
             }
-
+        
             return x.Color.CompareTo(y.Color);
         }
     }
