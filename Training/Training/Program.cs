@@ -24,8 +24,8 @@ namespace Training {
 
             //Day1Examples();
             //Day2Examples();
-            //Day3Examples();
-            Day3Sorting();
+            Day3Examples();
+            //Day3Sorting();
         }
 
         public struct Day3Struct {
@@ -77,6 +77,26 @@ namespace Training {
 
             //Day2 newDay2 = new Day2();
             //newDay2.name = "My New Name";
+
+            //access an inner class, by going through the parent class
+            //Day3<int>.Node myNode = new Day3<int>.Node(3);
+
+            Day3<int> userList1 = new Day3<int>();
+            Day3<string> userList2 = new Day3<string>();
+
+            userList1.AddHead(1);
+            userList1.AddHead(2);
+            userList1.AddHead(3);
+
+            userList2.AddHead("One");
+            userList2.AddHead("Two");
+            userList2.AddHead("Three");
+
+            userList1.Print();
+            userList2.Print();
+
+            Console.WriteLine($"Second elemnt: {userList1.Get(1)}");
+            Console.WriteLine($"Second elemnt: {userList2.Get(1)}");
         }
 
         public static void Day3Sorting() {
@@ -330,7 +350,5 @@ namespace Training {
             
 
         }
-
-
     }
 }
