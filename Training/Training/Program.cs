@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using Training.Data;
 
 namespace Training {
-    public class Program {
+    public class Program
+    {
         /* 
             
         This is a mult-line comment
@@ -16,20 +19,22 @@ namespace Training {
 
         //comment
         //this is your main class
-        public static void Main(string[] args) {
-            Console.WriteLine("Hello World!");
-            var day2 = new Day2();
-            day2.ThrowExample(-1);
+        public static void Main(string[] args)
+        {
+            //Console.WriteLine("Hello World!");
+            //var day2 = new Day2();
+            //day2.ThrowExample(-1);
             //day2.Log("My message");
             //day2.Log("My new message", 145);
-            
-            Day1Examples();
+            Day3StackExample();
+            //Day1Examples();
         }
 
         /// <summary>
         /// documentation comment changed
         /// </summary>
-        public static void Day1Examples() {
+        public static void Day1Examples()
+        {
             Console.WriteLine("Day 1 stuff");
 
             int _int = 1; //in is your whole numbers
@@ -114,5 +119,119 @@ namespace Training {
             Console.WriteLine($"{c2.Name}: " + c2.NumOfClasses());
             Console.WriteLine($"{c3.Name}: " + c3.NumOfClasses());
         }
+
+        public static void Day3ListExample()
+        {
+            // IEnumerable
+            var MyList = new List<string>();
+            var firstItem = MyList[0];
+            MyList.Add("Seth");
+            string[] names = { "Miles", "Josh", "Jim", "Sarah", "Charlotte" };
+            MyList.AddRange(names);
+
+            for (int i = 0; i < MyList.Count; i++)
+            {
+                if (MyList[i] == "Charlotte")
+                {
+                    MyList.Remove(MyList[i]);
+                }
+
+                if (MyList[i] == "Charlotte")
+                {
+                    MyList.RemoveAt(i);
+                }
+
+                MyList.ForEach(item => MyList.Remove(item));
+            }
+
+            foreach (var item in MyList)
+            {
+                if (item == "Charlotte")
+                {
+                    MyList.Remove(item);
+                }
+            }
+        }
+
+        public static void Day3DictionaryExample()
+        {
+            var cities = new Dictionary<string, string>();
+            cities.Add("North Carolina", "Charlotte");
+            cities.Add("South Carolina", "Columbia");
+            cities.Add("West Virginia", "Charleston");
+            var charlotte = cities["North Carolina"];
+            cities.Remove("South Carolina");
+
+            foreach (KeyValuePair<string, string> kvp in cities)
+            {
+                Console.WriteLine($"The state is {kvp.Key} and it's city is {kvp.Value}");
+            }
+
+            cities.Clear();
+            cities["North Carolina"] = "Raleigh";
+            var cityNames = cities.Values;
+            var stateNames = cities.Keys;
+        }
+
+        public static void Day3SortedListExample()
+        {
+            var cities = new SortedList<string, string>();
+            cities.Add("North Carolina", "Charlotte");
+            cities.Add("South Carolina", "Columbia");
+            cities.Add("West Virginia", "Charleston");
+            var charlotte = cities["North Carolina"];
+            cities.Remove("South Carolina");
+            //cities.Add("North Carolina", "Raleigh");
+            cities.Clear();
+            cities["North Carolina"] = "Raleigh";
+            var cityNames = cities.Values;
+            var stateNames = cities.Keys;
+            var wVA = cities.Values[2];
+        }
+
+        public static void Day3QueueExample()
+        {
+            // FIFO
+            var myQueue = new Queue<string>();
+            myQueue.Enqueue("Seth");
+            myQueue.Enqueue("Miles");
+            myQueue.Enqueue("Charlotte");
+            myQueue.Enqueue("James");
+
+            var name = myQueue.Dequeue();
+            myQueue.Peek();
+            myQueue.Clear();
+            string[] queueOfNames = { "" };
+            myQueue.CopyTo(queueOfNames, 0);
+
+        }
+
+        public static void Day3StackExample()
+        {
+            // LIFO
+            var myStack = new Stack<int>();
+            myStack.Push(42);
+            myStack.Push(13);
+            myStack.Push(21);
+            myStack.Push(35);
+            //int number = myStack.Pop();
+            int[] numArray = { };
+            //myStack.CopyTo(numArray, 0);
+            //myStack.Clear();
+            if (myStack.Contains(13))
+            {
+
+            }
+            Console.WriteLine(myStack.ToString());
+            foreach(var item in myStack)
+            {
+                Console.WriteLine(item);
+                myStack.Pop();
+            }
+            
+
+        }
+
+
     }
 }
