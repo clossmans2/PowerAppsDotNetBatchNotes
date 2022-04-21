@@ -15,13 +15,13 @@ namespace Training.Threads {
         }
 
         public void Add(double amt) {
-            double newBalance = this.Account.AddMoney(amt);
-            Console.WriteLine($"{this.Name} deposited {amt}, new balance is {newBalance}");
+            double newBalance = this.Account.AddMoney(this.Name, amt);
+            //Console.WriteLine($"{this.Name} deposited {amt}, new balance is {newBalance}");
         }
 
         public void Withdraw(double amt) {
-            double newBalance = this.Account.WithdrawMoney(amt);
-            Console.WriteLine($"{this.Name} withdrew {amt}, new balance is {newBalance}");
+            double newBalance = this.Account.WithdrawMoney(this.Name, amt);
+            //Console.WriteLine($"{this.Name} withdrew {amt}, new balance is {newBalance}");
         }
     }
 }

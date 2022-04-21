@@ -14,14 +14,24 @@ namespace Training.Threads {
             this.Balance = balance;
         }
 
-        //do not want these to hapoen at the same time
-        public double AddMoney(double amt) {
-            Balance += amt;
+        //do not want these to happen at the same time
+        public double AddMoney(string name, double amt) {
+            lock (mutex) {
+                Balance += amt;
+                Console.WriteLine($"{name} deposited {amt}, new balance is {Balance}");
+            }
             return Balance;
         }
 
-        public double WithdrawMoney(double amt) {
-            Balance -= amt;
+        public double WithdrawMoney(string name, double amt) {
+            lock (mutex) {
+                if (amt <= Balance) {
+                    Balance -= amt;
+                    Console.WriteLine($"{name} withdrew {amt}, new balance is {Balance}");
+                } else {
+                    Console.WriteLine($"{name} wanted to withdraw {Balance}, and couldn't");
+                }
+            }
             return Balance;
         }
     }
