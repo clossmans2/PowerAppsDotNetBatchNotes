@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 //using System.Configuration;
 using Training.Data;
+using Training.Threads;
 
 namespace Training {
     public class Program
@@ -46,13 +47,108 @@ namespace Training {
             //var appConfPassword = ConfigurationManager.AppSettings["Password"];
             //Console.WriteLine($"My username is {appConfUsername} and my password is {appConfPassword}");
 
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: false);
+            //var builder = new ConfigurationBuilder()
+            //    .SetBasePath(Directory.GetCurrentDirectory())
+            //    .AddJsonFile("appsettings.json", optional: false);
+
+            //IConfiguration configuration = builder.Build();
+            //var connString = configuration.GetSection("ConfigurationSetting").Get<ConfigurationSetting>();
+            //Console.WriteLine(connString.ConnString);
+
+            //Day4Singleton();
+            //Day4Examples();
+
+            Day4Threading();
+
+            //Console.ReadLine();
+        }
+
+        public static void Day4Threading() {
+            Console.WriteLine("Now on to threads");
+            //original singleton is not thread safe
+
+            //can be run in multiple ways
+            //one way:
+            //Thread t1 = new Thread(new ThreadStart(Method));
+            //easier way:
+            //hand it a lambda function
+            //Thread t1 = new Thread(() => { code });
+            //lambda syntax () => ... is the same as
+            //void AnonymousMethod() {
+            //    SomeOtherMethod(parameters);
+            //}
             
-            IConfiguration configuration = builder.Build();
-            var connString = configuration.GetSection("ConfigurationSetting").Get<ConfigurationSetting>();
-            Console.WriteLine(connString.ConnString);
+            Thread thread1 = new Thread(() => Console.WriteLine("Singleton: " + MySingleton2.Instance.GetHashCode()));
+            Thread thread2 = new Thread(() => Console.WriteLine("Singleton: " + MySingleton2.Instance.GetHashCode()));
+            Thread thread3 = new Thread(() => Console.WriteLine("Singleton: " + MySingleton2.Instance.GetHashCode()));
+
+            //how you start a thread
+            thread1.Start();
+            thread2.Start();
+            thread3.Start();
+
+            //also have to collect the threads when they finish
+            thread1.Join();
+            thread2.Join();
+            thread3.Join();
+
+            BankAccount act1 = new BankAccount(100);
+            BankAccount act2 = new BankAccount(100);
+            BankAccount act3 = new BankAccount(100);
+            Person p1 = new Person("Dan Pickles", act1);
+            Person p2 = new Person("Ann Pickles", act1);
+            Person p3 = new Person("John Doe", act2);
+            Person p4 = new Person("Bruce Wayne", act3);
+            Person p5 = new Person("Alfred", act3);
+            Dog dog = new Dog("Sparky", "Golden", true);
+            Dog dog2 = new Dog("Fiddo", "Grey", true);
+            Random rand = new Random();
+            List<Thread> tasks = new List<Thread>();
+
+            Thread t1 = new Thread(() => ManageAccount(p1, rand));
+            tasks.Add(t1);
+            Thread t2 = new Thread(() => ManageAccount(p2, rand));
+            tasks.Add(t2);
+            Thread t3 = new Thread(() => ManageAccount(p3, rand));
+            tasks.Add(t3);
+            Thread t4 = new Thread(() => ManageAccount(p4, rand));
+            tasks.Add(t4);
+            Thread t5 = new Thread(() => { 
+                //can also type code directly into the lambda
+
+            });
+            tasks.Add(t5);
+            Thread t6 = new Thread(dog.ThreadTest);
+            tasks.Add(t6);
+            Thread t7 = new Thread(dog.ThreadTest);
+            tasks.Add(t7);
+
+            foreach (Thread t in tasks) {
+                t.Start();
+            }
+
+            foreach (Thread th in tasks) {
+                th.Join();
+            }
+        }
+
+        public static void ManageAccount(Person p, Random rando) {
+
+        }
+
+        public static async void Day4Examples() {
+            await BreakfastAsync.MakeBreakfast();
+
+            //to show catching async errors
+            //cannot await void, because it does not return anything
+            Console.WriteLine("Async Errors");
+            BreakfastAsync.ExecuteErrors();
+        }
+
+        public static void Day4Singleton() {
+            Console.WriteLine("Singleton: " + MySingleton.Instance.GetHashCode());
+            Console.WriteLine("Singleton: " + MySingleton.Instance.GetHashCode());
+            Console.WriteLine("Singleton: " + MySingleton.Instance.GetHashCode());
         }
 
         public struct Day3Struct {
