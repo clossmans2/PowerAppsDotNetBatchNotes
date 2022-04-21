@@ -35,5 +35,9 @@ namespace Training.Data {
             }
             return String.Compare(this.Name, other.Name);
         }
+
+        public void ThreadTest() {
+            Console.WriteLine($"This is {this.Name}");
+        }
     }
 }
