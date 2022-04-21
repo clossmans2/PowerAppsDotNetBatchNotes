@@ -58,9 +58,63 @@ namespace Training {
             //Day4Singleton();
             //Day4Examples();
 
-            Day4Threading();
+            //Day4Threading();
+            Day4ProducerConsumer();
 
             //Console.ReadLine();
+        }
+
+        //issues can come up such as not enough producers, not enough consumers, etc. 
+        //other common concurrency issues are the dining philosophers, or santa's workshop
+        public static void Day4ProducerConsumer() {
+            Random random = new Random();
+            ProducerConsumer pcExample = new ProducerConsumer();
+
+            Thread producer1 = new Thread(() => {
+                    int val = random.Next(20, 51);
+
+                    for (int i = 0; i < 5; i++) {
+                        pcExample.AddProduce(val);
+                        Thread.Sleep(1000);
+                    }
+                });
+
+            Thread producer2 = new Thread(() => {
+                    int val = random.Next(20, 51);
+
+                    for (int i = 0; i < 5; i++) {
+                        pcExample.AddProduce(val);
+                        Thread.Sleep(1000);
+                    }
+                });
+
+            Thread consumer1 = new Thread(() => {
+                    int val = random.Next(40, 71);
+
+                    for (int i = 0; i < 5; i++) {
+                        pcExample.ConsumeProduce(val);
+                        Thread.Sleep(1000);
+                    }
+                });
+
+            Thread consumer2 = new Thread(() => {
+                    int val = random.Next(40, 71);
+
+                    for (int i = 0; i < 5; i++) {
+                        pcExample.ConsumeProduce(val);
+                        Thread.Sleep(1000);
+                    }
+                });
+
+            producer1.Start();
+            producer2.Start();
+            consumer1.Start();
+            consumer2.Start();
+
+            producer1.Join();
+            producer2.Join();
+            consumer1.Join();
+            consumer2.Join();
         }
 
         public static void Day4Threading() {
@@ -113,14 +167,21 @@ namespace Training {
             tasks.Add(t3);
             Thread t4 = new Thread(() => ManageAccount(p4, rand));
             tasks.Add(t4);
-            Thread t5 = new Thread(() => { 
-                //can also type code directly into the lambda
-
-            });
+            Thread t5 = new Thread(() => {
+                    //can also type code directly into the lambda
+                    for (int i = 0; i < 4; i++) {
+                        //random values between 40 and 60
+                        double val = rand.NextDouble() * (60 - 40) + 40;
+                        p5.Add(val);
+                        Thread.Sleep(2000);
+                        val = rand.NextDouble() * (60 - 40) + 40;
+                        p5.Withdraw(val);
+                    }
+                });
             tasks.Add(t5);
             Thread t6 = new Thread(dog.ThreadTest);
             tasks.Add(t6);
-            Thread t7 = new Thread(dog.ThreadTest);
+            Thread t7 = new Thread(dog2.ThreadTest);
             tasks.Add(t7);
 
             foreach (Thread t in tasks) {
@@ -130,10 +191,28 @@ namespace Training {
             foreach (Thread th in tasks) {
                 th.Join();
             }
+
+            Console.WriteLine("All Threads are finished");
+
+            Thread newThread = new Thread(() => { Thread.Sleep(1200000000); });
+
+            newThread.Start();
+
+            newThread.Interrupt();
+            Console.WriteLine("Thread interrupted");
+
+            newThread.Join();
         }
 
         public static void ManageAccount(Person p, Random rando) {
-
+            for (int i = 0; i < 4; i++) {
+                //random values between 40 and 60
+                double val = rando.NextDouble() * (60 - 40) + 40;
+                p.Add(val);
+                Thread.Sleep(2000);
+                val = rando.NextDouble() * (60 - 40) + 40;
+                p.Withdraw(val);
+            }
         }
 
         public static async void Day4Examples() {
