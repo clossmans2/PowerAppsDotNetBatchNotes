@@ -9,9 +9,20 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Training.Data", "Training.D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Training.Factories", "Training.Factories\Training.Factories.csproj", "{B704FF7A-E554-49D1-83A3-0DE458278D51}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Training.Threads", "Training.Threads\Training.Threads.csproj", "{BEEC6978-4222-4938-A0CB-C8D6DA113DD6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Training.Threads", "Training.Threads\Training.Threads.csproj", "{BEEC6978-4222-4938-A0CB-C8D6DA113DD6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Training.Test", "Training.Test\Training.Test.csproj", "{9542E173-DF9C-414F-AC95-F2BD5BA694BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Training.Test", "Training.Test\Training.Test.csproj", "{9542E173-DF9C-414F-AC95-F2BD5BA694BF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{66CC2992-C109-43B1-9D07-189140E6333E}"
+	ProjectSection(SolutionItems) = preProject
+		SqlServerScripts\BuiltInSystemFunctions.sql = SqlServerScripts\BuiltInSystemFunctions.sql
+		SqlServerScripts\ControlFlow.sql = SqlServerScripts\ControlFlow.sql
+		SqlServerScripts\CTE_And_TableVariables.sql = SqlServerScripts\CTE_And_TableVariables.sql
+		SqlServerScripts\MilesInventory.sql = SqlServerScripts\MilesInventory.sql
+		SqlServerScripts\TempTableWalkthrough.sql = SqlServerScripts\TempTableWalkthrough.sql
+		SqlServerScripts\Transactions.sql = SqlServerScripts\Transactions.sql
+		SqlServerScripts\Views.sql = SqlServerScripts\Views.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
