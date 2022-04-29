@@ -16,8 +16,24 @@ namespace  ContosoUniversity
             ConfigurationBinder.Bind(configuration.GetSection("AppSettings"), appSettings);
 
             var schoolFactory = new SchoolContextFactory(appSettings.ConnectionString);
-            //var schoolContext = schoolFactory.CreateDbContext();
+            var blankParams = new string[] { };
+            var schoolContext = schoolFactory.CreateDbContext(blankParams);
+            CreateDbIfNotExists(schoolContext);
 
+        }
+
+        private static void CreateDbIfNotExists(SchoolContext ctx)
+        {
+            try
+            {
+                //ctx.Database.EnsureDeleted();
+                DbInitializer.Initialize(ctx);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"An Error Occurred: {ex.Message}");
+            }
         }
 
     }
