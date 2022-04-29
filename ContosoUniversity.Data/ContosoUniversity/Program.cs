@@ -15,7 +15,8 @@ namespace  ContosoUniversity
             var configuration = builder.Build();
             ConfigurationBinder.Bind(configuration.GetSection("AppSettings"), appSettings);
 
-            var context = new SchoolContext(appSettings.ConnectionString);
+            var schoolFactory = new SchoolContextFactory(appSettings.ConnectionString);
+            //var schoolContext = schoolFactory.CreateDbContext();
 
         }
 

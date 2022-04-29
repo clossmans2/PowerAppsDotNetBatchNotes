@@ -11,32 +11,23 @@ namespace ContosoUniversity
 {
     public class SchoolContext : DbContext
     {
-        private readonly string _connectionString;
-
-        public SchoolContext(string connectionString)
+        public SchoolContext(DbContextOptions options) : base(options)
         {
-            _connectionString = connectionString;
         }
 
-
-        public SchoolContext(DbContextOptions<SchoolContext> options) : base (options)
-        {
-
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(_connectionString);
-        }
-
-        public DbSet<Course> Courses { get; set; }
-        public DbSet<Enrollment> Enrollments { get; set; }
-        public DbSet<Student> Students { get; set; }
+        public DbSet<Course> Courses { get; set; } = null!;
+        public DbSet<Enrollment> Enrollments { get; set; } = null!;
+        public DbSet<Student> Students { get; set; } = null!;
     }
 
     public class SchoolContextFactory : IDesignTimeDbContextFactory<SchoolContext>
     {
         private readonly string _connectionString;
+
+        public SchoolContextFactory()
+        {
+            _connectionString = "Data Source=0250L-D6YGCL2;Initial Catalog=ContosoUniversity;Trusted_Connection=True;";
+        }
 
         public SchoolContextFactory(string connectionString)
         {
