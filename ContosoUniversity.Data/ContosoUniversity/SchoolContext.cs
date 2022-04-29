@@ -15,6 +15,36 @@ namespace ContosoUniversity
         {
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Enrollment>()
+                .HasMany<Course>();
+
+            modelBuilder.Entity<Enrollment>()
+                .HasOne<Student>()
+                .WithMany(s => s.Enrollments)
+                .HasForeignKey(e => e.StudentId);
+                
+
+            modelBuilder.Entity<Student>()
+                .HasMany<Enrollment>();
+
+            modelBuilder.Entity<Course>()
+                .HasMany<Enrollment>();
+
+            modelBuilder.Entity<Student>()
+                .Property("EnrollmentDate")
+                .HasDefaultValue(DateTime.Now);
+
+            
+
+            // One to one relationship
+            //modelBuilder.Entity<Student>()
+            //    .HasOne<Enrollment>()
+            //    .WithOne("Student");
+
+        }
+
         public DbSet<Course> Courses { get; set; } = null!;
         public DbSet<Enrollment> Enrollments { get; set; } = null!;
         public DbSet<Student> Students { get; set; } = null!;

@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace ContosoUniversity
 {
@@ -19,7 +20,9 @@ namespace ContosoUniversity
     public class Enrollment
     {
         public int Id { get; set; }
+        
         public int CourseId { get; set; }
+        
         public int StudentId { get; set; }
         
         [DisplayFormat(NullDisplayText = "No grade")]

@@ -47,6 +47,8 @@ namespace  ContosoUniversity
                 .Include(e => e.Course)
                 .Where(e => e.Student.FirstMidName == "Seth")
                 .Select(e => e.Course)
+                .Skip(1)
+                .Take(100)
                 .ToList();
 
 
@@ -56,6 +58,8 @@ namespace  ContosoUniversity
                 .Where(e => e.StudentId == 1)
                 .ToList();
 
+
+
             //foreach (var en in myEnrollments)
             //{
             //    schoolContext.Remove(en);
@@ -63,13 +67,53 @@ namespace  ContosoUniversity
 
 
             //schoolContext.RemoveRange(myEnrollments);
-            
-            var me = schoolContext.Students.First(s => s.Id == 1);
+
+            var me = schoolContext.Students
+                .SingleOrDefault(s => s.Id == 1, new Student { FirstMidName = "Seth Daniel", LastName = "Clossman" });
+                
+                //.Single(s => s.Id == 1);
+
+            //.FirstOrDefault(s => s.Id == 1, new Student { FirstMidName="Seth Daniel", LastName="Clossman"});
+
+            //.First(s => s.Id == 1);
+
             me.FirstMidName = "Seth";
 
             //schoolContext.Update(me);
 
-            schoolContext.SaveChanges();
+            //schoolContext.SaveChanges();
+            RunningEntity(schoolContext);
+
+            
+        }
+
+        private static void RunningEntity(SchoolContext school) 
+        {
+            var userInput = Console.ReadLine;
+            string selectStatement = $"SELECT * FROM dbo.[Students] WHERE FirstMidName = '{userInput}'";
+
+            string execStatement = $"EXEC sp_MyStoredProcedureName @param1={DateTime.Now} @param2={userInput}";
+
+            var students = school.Students
+                .FromSqlRaw(selectStatement)
+                .ToList();
+
+
+
+            foreach (var student in students) {
+                Console.WriteLine($"{student.FirstMidName} {student.LastName} {student.EnrollmentDate}");
+            }
+
+            var courses = school.Courses
+                .FromSqlInterpolated($"SELECT * FROM dbo.[Students] WHERE FirstMidName = '{userInput}'")
+                .Where(c => c.Id == 1)
+                .ToList();
+
+            var returnValueFromSproc = school.Database.ExecuteSqlInterpolated(
+                $"EXEC sp_MyStoredProcedureName @param1={DateTime.Now} @param2={userInput}");
+                
+
+
 
             
         }
