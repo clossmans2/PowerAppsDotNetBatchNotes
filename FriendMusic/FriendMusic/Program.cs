@@ -32,6 +32,7 @@ using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     FMInitializer.Initialize(services);
+
 }
 
 // Configure the HTTP request pipeline.
