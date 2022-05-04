@@ -17,6 +17,7 @@ namespace FriendMusic.Data
 
         public DbSet<Person> People { get; set; }
         public DbSet<Song> Songs { get; set; }
+        public DbSet<Playlist> Playlists { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
