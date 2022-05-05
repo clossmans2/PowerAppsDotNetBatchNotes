@@ -10,10 +10,10 @@ namespace FriendMusic.Models
 
         public Person? Owner { get; set; } = null!;
 
-        public ICollection<Song>? Songs { get; set; } = null!;
+        public ICollection<PlaylistSong>? Songs { get; set; } = new List<PlaylistSong>();
 
         [NotMapped]
-        public int TotalTracks => Songs.Count;
+        public int TotalTracks => Songs == null ? 0 : Songs.Count;
 
     }
 }

@@ -19,6 +19,6 @@ namespace FriendMusic.Models
         public TimeSpan Length { get; set; }
         public string AlbumTitle { get; set; } = String.Empty;
         
-        //public ICollection<Person>? FavoritedByPeople { get; set; }
+        public ICollection<PlaylistSong>? Playlists { get; set; }
     }
 }

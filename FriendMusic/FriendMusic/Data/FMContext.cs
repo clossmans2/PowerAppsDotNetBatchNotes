@@ -21,10 +21,32 @@ namespace FriendMusic.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<Person>()
-            //    .HasOne(p => p.FavoriteSong)
-            //    .WithMany()
-            //    .OnDelete(DeleteBehavior.SetNull);
+            modelBuilder.Entity<Person>()
+                .HasMany(p => p.OwnedPlaylists)
+                .WithOne(p => p.Owner);
+
+            modelBuilder.Entity<LikedPlaylist>()
+                .HasOne<Person>()
+                .WithMany(p => p.LikedPlaylists)
+                .HasForeignKey(p => p.PersonId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<LikedPlaylist>()
+                .HasOne(p => p.Playlist)
+                .WithMany()
+                .HasForeignKey(p => p.PlaylistId);
+
+
+            modelBuilder.Entity<Playlist>()
+                .HasMany(p => p.Songs)
+                .WithOne(ps => ps.Playlist)
+                .HasForeignKey(ps => ps.PlaylistId);
+
+            modelBuilder.Entity<PlaylistSong>()
+                .HasOne(ps => ps.Song)
+                .WithMany(s => s.Playlists)
+                .HasForeignKey(ps => ps.SongId);
+                
         }
     }
 }

@@ -20,6 +20,7 @@ IWebHostEnvironment environment = builder.Environment;
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddLogging();
 builder.Services.AddDbContext<FMContext>(options => 
     options.UseSqlServer(configuration.GetConnectionString("FMContext")));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
