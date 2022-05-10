@@ -1,0 +1,13 @@
+{
+  "name": "JSOverview",
+  "version": "1.0.0",
+  "main": "start.js",
+  "author": "Seth Clossman",
+  "license": "MIT",
+  "scripts": {
+    "run": "node start.js"
+  },
+  "devDependencies": {
+    "node-static": "^0.7.11"
+  }
+}

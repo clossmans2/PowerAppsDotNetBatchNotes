@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events</title>
+    <style type="text/css">
+        div#outer-div {
+            background-color: purple;
+            padding: 50px;
+        }
+        div#inner-div {
+            background-color: aquamarine;
+            font-size: 20px;
+            border: 1px solid;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="outer-div">
+        <div id="inner-div">
+            Click Here!
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        const innerDiv = document.getElementById("inner-div");
+        const outerDiv = document.getElementById("outer-div");
+
+        function alertLogInner(event){
+            alert("Inner div was clicked");
+            console.log("Inner div was clicked");
+        }
+        function alertLogOuter(event){
+            alert("Outer div was clicked");
+            console.log("Outer div was clicked");
+        }
+        // Bubbling (Inner first then outer)
+        // innerDiv.addEventListener("click", alertLogInner, false);
+        //outerDiv.addEventListener("click", alertLogOuter, false);
+        // Capturing (Outside-in model)
+        innerDiv.addEventListener("click", alertLogInner, true);
+        outerDiv.addEventListener("click", alertLogOuter, true);
+    </script>
+</body>
+</html>
