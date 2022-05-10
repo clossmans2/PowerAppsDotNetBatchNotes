@@ -101,3 +101,45 @@ let mySelfRefObj = {
 
 Object.create(Array).length === 1 // true
 Object.keys(Object.create(Array)).length === 0 // true
+
+// Arrays
+// Array Literal Syntax
+let beerIngredientsArray = ["Grains", "Water", "Yeast", "Hops", "Irish Moss"];
+// New Array Syntax
+let newArray = new Array();
+// New Array with Defined Length 
+let newArrayWithLengthDefined = new Array(10);
+// New Array Syntax with stuff
+let newArrWithItems = new Array("Apples", "Oranges", "Bananas", 4, undefined, true);
+// Some array methods
+beerIngredientsArray.length
+newArrWithItems.push('Pear');
+newArrWithItems.pop();
+newArrWithItems.join(','); // Apples, Oranges, Bananas, 4, undefined, true, Pear
+newArrWithItems.keys();
+newArrWithItems.sort();
+for (let index = 0; index < newArrWithItems.length; index++) {
+    let fruit = newArrWithItems[index];
+    console.log(fruit);
+}
+newArrWithItems[7];
+
+// Number
+let anIntButANumber = 10000.00;
+let stringExample = "A string for example";
+
+// Boolean
+let boolExample1 = true;
+let boolExample2 = false;
+let boolExample3 = new Boolean();
+
+// Symbol (ES6)
+const s1 = Symbol();
+const s2 = Symbol();
+console.log(typeof s1);
+console.log(s1===s2);
+const s3 = Symbol("hello");
+const s4 = Symbol("hello");
+console.log(s3)
+console.log(s4)
+console.log(s3==s4)
