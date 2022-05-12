@@ -398,3 +398,4 @@ FodyWeavers.xsd
 *.sln.iml
 *.cs.swp
 /Training/WideWorldImporters.cs
+JSOverview/yarn.lock

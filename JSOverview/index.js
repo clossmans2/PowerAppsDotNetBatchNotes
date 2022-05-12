@@ -449,3 +449,90 @@ let sortedVals = vals3.sort(
     (a,b) => comparisonFunction(a,b)
 );
 console.log(sortedVals);
+
+const xhr = new XMLHttpRequest();
+let dogUrl = "https://dog.ceo/api/breeds/image/random";
+let httpMethod = "GET";
+
+xhr.open(httpMethod, dogUrl, true);
+xhr.responseType = "json";
+xhr.onreadystatechange = () => {
+    if (xhr.readyState === XMLHttpRequest.DONE) {
+        let status = xhr.status;
+        if(status === 0 || (status >= 200 && status < 400)) {
+            console.log(xhr.response);
+        } else {
+            console.log("An error occured!");
+        }
+    }
+};
+
+xhr.send();
+
+//////////////////////////
+var reqHeaders = new Headers();
+reqHeaders.append('accept', 'application/json');
+reqHeaders.append('Content-Type', 'application/json');
+reqHeaders.append('X-RapidAPI-Host', 'matchilling-chuck-norris-jokes-v1.p.rapidapi.com');
+reqHeaders.append('X-RapidAPI-Key', '3Ih2ExXrBwGSaRK6dERrdvoGuxIBZqQA');
+const chuckNorrisApi = 'https://matchilling-chuck-norris-jokes-v1.p.rapidapi.com/jokes/random';
+
+const reqOptions = {
+    method: 'GET',
+    mode: 'cors',
+    headers: reqHeaders
+};
+
+fetch(chuckNorrisApi, reqOptions)
+    
+    .then(resp => resp.json())
+    .then(data => console.log(data.value))
+    .catch((err) => {
+        console.error(err);
+    });
+
+
+const myPromise = new Promise((resolve, reject) => {
+    if (Math.random() * 100 < 10) {
+        console.log("resolving the promise");
+        resolve("Promise fulfilled");
+    }
+    reject( new Error('In 10% of cases, it fails. Miserably!'));
+});
+
+const onResolved = (resolvedValue) => console.log(resolvedValue);
+const onRejected = (error) => console.log(error);
+
+myPromise.then(onResolved, onRejected);
+
+myPromise.then((resVal) => console.log(resVal), (error) => console.log(error));
+///// Another library outside this one
+var message;
+
+
+
+
+///////////////////////////////////
+///////// Typescript Intro ///////
+///////////////////////////////////
+
+message.toLowerCase();
+
+message();
+
+const message = "Hello World!";
+
+function fn(x) {
+    return x.flip();
+}
+
+fn(["hello world", 2, true]);
+
+const user = {
+    name: "Seth",
+    age: "Old",
+    location: undefined
+};
+
+user.location;
+
