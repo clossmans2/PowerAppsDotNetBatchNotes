@@ -29,12 +29,20 @@ class SongSearchBar extends PureComponent<SongSearchBarProps, SongSearchBarState
     render() {
       return (
         <form>
-          <input
-            type="text"
-            placeholder="Search..."
-            value={this.state.filterText}
-            onChange={this.handleFilterTextChange}
-          />
+          <div className="mb-5 row">
+            <label htmlFor="songSearchInput" className="col-sm-2 form-label">Search</label>
+            <br />
+            <br />
+            <div className="col-sm-10">
+              <input 
+                id="songSearchInput"
+                type="text" 
+                className="form-control"
+                value={this.state.filterText}
+                onChange={this.handleFilterTextChange}
+                />
+              </div>
+            </div>
         </form>
       );
     }

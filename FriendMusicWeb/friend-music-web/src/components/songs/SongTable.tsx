@@ -1,10 +1,11 @@
-import React, { Component, ReactElement } from "react";
-import SongRow from "./SongRow";
+import React, { Component } from "react";
 import Song from "../../models/song";
+import SongRow from "./SongRow";
+import SongTableColumns from "./SongTableColumns";
 
 type SongTableProps = {
     filterText: string;
-    Songs: Song[];
+    songs: Song[];
 }
 
 type SongTableState = {
@@ -13,36 +14,28 @@ type SongTableState = {
 
 class SongTable extends Component<SongTableProps, SongTableState> {
     render() {
-      const filterText = this.props.filterText;
-  
-      const rows: Array<ReactElement<SongRow>> = [];
-  
-      this.props.Songs.forEach((Song: Song) => {
-        if (Song.Title.indexOf(filterText) === -1) {
-          return;
-        }
-        rows.push(
-          <SongRow
-            Song={Song}
-            key={Song.Title}
-          />
+        return (
+              <table className="table table-bordered table-striped table-hover table-highlight">
+                <thead>
+                  <SongTableColumns />
+                </thead>
+                <tbody> 
+                  {this.props.songs.map( (song: Song) =>  (           
+                    <SongRow song={song} key={song.Id} />
+                    
+                    // <React.Fragment key={song.Id}>
+                    //   <tr>
+                    //     <td>{song.AlbumTitle}</td>
+                    //     <td>{song.Artist}</td>
+                    //     <td>{song.Length}</td>
+                    //     <td>{song.Title}</td>
+                    //   </tr>
+                    // </React.Fragment>
+                  ))};
+                </tbody>
+              </table>
         );
-        });
-  
-      return (
-        <table>
-          <thead>
-            <tr>
-              <th>Album Title</th>
-              <th>Artist</th>
-              <th>Length</th>
-              <th>Title</th>
-            </tr>
-          </thead>
-          <tbody>{rows}</tbody>
-        </table>
-      );
-    }
-  }
+    };
+}
 
 export default SongTable;

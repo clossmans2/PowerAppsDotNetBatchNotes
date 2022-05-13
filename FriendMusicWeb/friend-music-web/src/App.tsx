@@ -1,5 +1,4 @@
-import { AxiosResponse } from "axios";
-import React, { Component, useState } from "react";
+import React from "react";
 import "./App.css";
 import FilteredSongTable from "./components/songs/FilteredSongTable";
 import Song from "./models/song";
@@ -13,33 +12,41 @@ type AppState = {
   songList: Song[];
 };
 
-class App extends Component<AppProps, AppState> {
-  state: AppState = {
-    songList: [],
+class App extends React.Component<AppProps, AppState> {
+  state: AppState ={
+    songList: []
   };
-  
-  render() {
+
+  componentDidMount() {
     APIService.getSongs()
       .then((response) => {
-        response.data.forEach((song: Song) => {
-          this.addSong(song);
+        this.setState({
+          songList: response.data
         });
       })
       .catch((err: Error) => {
         console.log(err);
       });
+  }
+  
+  render() {
     return (
-      <div className="App">
-        <FilteredSongTable Songs={this.state.songList} />
-      </div>
+      <main>
+        <div className="App container">
+          <div className="jumbotron">
+            <h2>Songs from 2005</h2>
+          </div>
+          <FilteredSongTable songs={this.state.songList} />
+        </div>
+      </main>
     );
   }
 
-  addSong = (song: Song) => {
-    this.setState((state) => {
-      state.songList.push(song)
-    });
-  };
+  // addSong = (song: Song) => {
+  //   this.setState((state) => {
+  //     state.songList.push(song)
+  //   });
+  // };
 }
 
 export default App;

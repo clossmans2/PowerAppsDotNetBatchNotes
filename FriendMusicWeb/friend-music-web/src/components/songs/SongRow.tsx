@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import Song from "../../models/song";
 
 type SongRowProps = {
-    Song: Song;
+    song: Song;
 }
 
 type SongRowState = {
@@ -11,15 +11,17 @@ type SongRowState = {
 
 class SongRow extends Component<SongRowProps, SongRowState> {
     render() {
-      const Song = this.props.Song;
-      let songId = `song${Song.Id}`;
+      const song = this.props.song;
+      let songId = `song${song.Id}`;
       return (
-        <tr id={songId}>
-          <td>{Song.AlbumTitle}</td>
-          <td>{Song.Artist}</td>
-          <td>{Song.Length}</td>
-          <td>{Song.Title}</td>
-        </tr>
+        <React.Fragment key={song.Id}>
+          <tr id={songId}>
+            <td>{song.AlbumTitle}</td>
+            <td>{song.Artist}</td>
+            <td>{song.Length}</td>
+            <td>{song.Title}</td>
+          </tr>
+        </React.Fragment>
       );
     }
   }

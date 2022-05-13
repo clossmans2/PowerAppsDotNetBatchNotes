@@ -4,7 +4,7 @@ import SongTable from "./SongTable";
 import Song from "../../models/song";
 
 type FilterableSongTableProps = {
-  Songs: Song[];
+  songs: Song[];
 }
 
 type FilterableSongTableState = {
@@ -35,7 +35,7 @@ class FilterableSongTable extends Component<FilterableSongTableProps, Filterable
           onFilterTextChange={this.handleFilterTextChange}
         />
         <SongTable
-          Songs={this.props.Songs}
+          songs={this.props.songs}
           filterText={this.state.filterText}
         />
       </div>
