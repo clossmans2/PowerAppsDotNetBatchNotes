@@ -1,8 +1,8 @@
 import React, { ChangeEventHandler, PureComponent } from "react";
 
 type SongSearchBarProps = {
+    filterText: string;
     onFilterTextChange: ChangeEventHandler<HTMLInputElement>;
-    onInStockChange: ChangeEventHandler<HTMLInputElement>;
 };
 
 type SongSearchBarState = {

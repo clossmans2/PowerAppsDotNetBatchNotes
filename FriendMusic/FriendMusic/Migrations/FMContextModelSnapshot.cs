@@ -22,6 +22,30 @@ namespace FriendMusic.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("FriendMusic.Models.LikedPlaylist", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PersonId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PlaylistId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PersonId");
+
+                    b.HasIndex("PlaylistId");
+
+                    b.ToTable("LikedPlaylist");
+                });
+
             modelBuilder.Entity("FriendMusic.Models.Person", b =>
                 {
                     b.Property<int>("Id")
@@ -77,6 +101,30 @@ namespace FriendMusic.Migrations
                     b.ToTable("Playlists");
                 });
 
+            modelBuilder.Entity("FriendMusic.Models.PlaylistSong", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("AddedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PlaylistId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SongId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PlaylistId");
+
+                    b.HasIndex("SongId");
+
+                    b.ToTable("PlaylistSong");
+                });
+
             modelBuilder.Entity("FriendMusic.Models.Song", b =>
                 {
                     b.Property<int>("Id")
@@ -96,18 +144,28 @@ namespace FriendMusic.Migrations
                     b.Property<TimeSpan>("Length")
                         .HasColumnType("time");
 
-                    b.Property<int?>("PlaylistId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PlaylistId");
-
                     b.ToTable("Songs");
+                });
+
+            modelBuilder.Entity("FriendMusic.Models.LikedPlaylist", b =>
+                {
+                    b.HasOne("FriendMusic.Models.Person", null)
+                        .WithMany()
+                        .HasForeignKey("PersonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FriendMusic.Models.Playlist", null)
+                        .WithMany()
+                        .HasForeignKey("PlaylistId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("FriendMusic.Models.Person", b =>
@@ -122,7 +180,7 @@ namespace FriendMusic.Migrations
             modelBuilder.Entity("FriendMusic.Models.Playlist", b =>
                 {
                     b.HasOne("FriendMusic.Models.Person", "Owner")
-                        .WithMany()
+                        .WithMany("OwnedPlaylists")
                         .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -130,16 +188,24 @@ namespace FriendMusic.Migrations
                     b.Navigation("Owner");
                 });
 
-            modelBuilder.Entity("FriendMusic.Models.Song", b =>
+            modelBuilder.Entity("FriendMusic.Models.PlaylistSong", b =>
                 {
                     b.HasOne("FriendMusic.Models.Playlist", null)
-                        .WithMany("Songs")
-                        .HasForeignKey("PlaylistId");
+                        .WithMany()
+                        .HasForeignKey("PlaylistId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FriendMusic.Models.Song", null)
+                        .WithMany()
+                        .HasForeignKey("SongId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
-            modelBuilder.Entity("FriendMusic.Models.Playlist", b =>
+            modelBuilder.Entity("FriendMusic.Models.Person", b =>
                 {
-                    b.Navigation("Songs");
+                    b.Navigation("OwnedPlaylists");
                 });
 #pragma warning restore 612, 618
         }

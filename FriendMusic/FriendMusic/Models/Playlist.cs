@@ -8,9 +8,10 @@ namespace FriendMusic.Models
         public string Title { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
 
-        public Person? Owner { get; set; } = null!;
+        public Person Owner { get; set; } = null!;
 
-        public ICollection<PlaylistSong>? Songs { get; set; } = new List<PlaylistSong>();
+        public ICollection<Song> Songs { get; set; } = new List<Song>();
+        public ICollection<Person> LikedBy { get; set; } = new List<Person>();
 
         [NotMapped]
         public int TotalTracks => Songs == null ? 0 : Songs.Count;

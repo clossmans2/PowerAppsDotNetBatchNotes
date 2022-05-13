@@ -15,7 +15,7 @@ class SongTable extends Component<SongTableProps, SongTableState> {
     render() {
       const filterText = this.props.filterText;
   
-      const rows: Array<ReactElement<any, any>> = [];
+      const rows: Array<ReactElement<SongRow>> = [];
   
       this.props.Songs.forEach((Song: Song) => {
         if (Song.Title.indexOf(filterText) === -1) {
@@ -27,7 +27,7 @@ class SongTable extends Component<SongTableProps, SongTableState> {
             key={Song.Title}
           />
         );
-      });
+        });
   
       return (
         <table>

@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using FriendMusic.Models;
+﻿using FriendMusic.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace FriendMusic.Data
 {
@@ -21,32 +21,30 @@ namespace FriendMusic.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Person>()
-                .HasMany(p => p.OwnedPlaylists)
-                .WithOne(p => p.Owner);
+            modelBuilder.Entity<Person>(person =>
+            {
+                person.HasMany(p => p.OwnedPlaylists)
+                      .WithOne(p => p.Owner);
 
-            modelBuilder.Entity<LikedPlaylist>()
-                .HasOne<Person>()
-                .WithMany(p => p.LikedPlaylists)
-                .HasForeignKey(p => p.PersonId)
-                .OnDelete(DeleteBehavior.Cascade);
+                person.HasMany(p => p.LikedPlaylists)
+                      .WithMany(p => p.LikedBy)
+                      .UsingEntity<LikedPlaylist>();
 
-            modelBuilder.Entity<LikedPlaylist>()
-                .HasOne(p => p.Playlist)
-                .WithMany()
-                .HasForeignKey(p => p.PlaylistId);
+                person.HasOne(p => p.FavoriteSong)
+                      .WithMany();
+            });
 
 
-            modelBuilder.Entity<Playlist>()
-                .HasMany(p => p.Songs)
-                .WithOne(ps => ps.Playlist)
-                .HasForeignKey(ps => ps.PlaylistId);
+            modelBuilder.Entity<Playlist>(entity =>
+            {
+                entity.HasMany(p => p.LikedBy)
+                    .WithMany(p => p.LikedPlaylists)
+                    .UsingEntity<LikedPlaylist>();
 
-            modelBuilder.Entity<PlaylistSong>()
-                .HasOne(ps => ps.Song)
-                .WithMany(s => s.Playlists)
-                .HasForeignKey(ps => ps.SongId);
-                
+                entity.HasMany(p => p.Songs)
+                    .WithMany(s => s.Playlists)
+                    .UsingEntity<PlaylistSong>();
+            });
         }
     }
 }

@@ -3,10 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using FriendMusic.Data;
 
 var builder = WebApplication.CreateBuilder(args);
+var corsPolicy = "Cors";
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: "AllowAll",
+    options.AddPolicy(name: corsPolicy,
         policy =>
         {
             policy.AllowAnyOrigin();
@@ -19,7 +20,12 @@ ConfigurationManager configuration = builder.Configuration;
 IWebHostEnvironment environment = builder.Environment;
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.PropertyNamingPolicy = null;
+    options.JsonSerializerOptions.WriteIndented = true;
+    options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+});
 builder.Services.AddLogging();
 builder.Services.AddDbContext<FMContext>(options => 
     options.UseSqlServer(configuration.GetConnectionString("FMContext")));
@@ -33,7 +39,6 @@ using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     FMInitializer.Initialize(services);
-
 }
 
 // Configure the HTTP request pipeline.
@@ -44,6 +49,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(corsPolicy);
 
 app.UseAuthorization();
 

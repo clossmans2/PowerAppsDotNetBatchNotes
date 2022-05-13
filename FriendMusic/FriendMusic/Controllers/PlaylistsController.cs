@@ -27,25 +27,13 @@ namespace FriendMusic.Controllers
 
         // GET: api/Playlists
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Playlist>>> GetPlaylists()
-        {
-            _logger.LogInformation("Returning all playlists to client.");
-            return await _context.Playlists.ToListAsync();
-        }
+        public async Task<ActionResult<IEnumerable<Playlist>>> GetPlaylists() => await _context.Playlists.ToListAsync();
+        
 
         // GET: api/Playlists/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Playlist>> GetPlaylist(int id)
-        {
-            var playlist = await _context.Playlists.FindAsync(id);
+        public async Task<ActionResult<Playlist>> GetPlaylist(int id) => await _context.Playlists.FindAsync(id);
 
-            if (playlist == null)
-            {
-                return NotFound();
-            }
-
-            return playlist;
-        }
 
         // GET: api/Playlists/B.O.B.
         [HttpGet("{title}")]
@@ -62,6 +50,7 @@ namespace FriendMusic.Controllers
         // PUT: api/Playlists/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Put))]
         public async Task<IActionResult> PutPlaylist(int id, Playlist playlist)
         {
             if (id != playlist.Id)
@@ -136,20 +125,15 @@ namespace FriendMusic.Controllers
                 BadRequest();
             }
             _logger.LogDebug("Song found.  Creating new PlaylistSong record.");
-            var ps = PlaylistSong.AddSongToPlaylist(_context, playlistId, songId);
+            playlist.Songs.Add(song);
 
             _logger.LogDebug("Calling context.SaveChanges");
 
             await _context.SaveChangesAsync();
 
-            var retObj = new { 
-                Playlist = playlist,
-                Song = song,
-                PlaylistSong = ps
-            };
-            _logger.LogDebug($"Returning evenrything {retObj}");
+            _logger.LogDebug($"Returning evenrything {playlist}");
 
-            return Ok();           
+            return Ok(playlist);           
         }
 
         // POST: api/Playlists/5/Owner/10

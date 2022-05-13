@@ -13,7 +13,7 @@ type FilterableProductTableState = {
 }
 
   class FilterableProductTable extends Component<FilterableProductTableProps, FilterableProductTableState> {
-    constructor(props: any) {
+    constructor(props: FilterableProductTableProps) {
       super(props);
       this.state = {
         filterText: '',

@@ -12,13 +12,13 @@ namespace FriendMusic.Models
         public string Title { get; set; } = String.Empty;
 
         [Required]
-        [Display(Name = "Sound Specialist Esquire The Third")]
+        //[Display(Name = "Sound Specialist Esquire The Third")]
         public string Artist { get; set; } = String.Empty;
         
         [JsonConverter(typeof(JsonTimeSpanConverter))]
         public TimeSpan Length { get; set; }
         public string AlbumTitle { get; set; } = String.Empty;
-        
-        public ICollection<PlaylistSong>? Playlists { get; set; }
+
+        public List<Playlist> Playlists { get; set; } = new List<Playlist>();
     }
 }
