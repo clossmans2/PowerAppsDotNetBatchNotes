@@ -1,6 +1,7 @@
 import React from "react";
 
 const SongTableColumns = (props: any): JSX.Element => {
+    
     return (
         <>
             <tr>

@@ -14,6 +14,7 @@ class SongSearchBar extends PureComponent<SongSearchBarProps, SongSearchBarState
     constructor(props: SongSearchBarProps) {
       super(props);
       this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
+      this.handleSearchFormSubmit = this.handleSearchFormSubmit.bind(this);
     }
     state: SongSearchBarState = {
         filterText: "",
@@ -25,10 +26,14 @@ class SongSearchBar extends PureComponent<SongSearchBarProps, SongSearchBarState
         });
         this.props.onFilterTextChange(e.target.value);
     }
+
+    handleSearchFormSubmit(e: any) {
+        e.preventDefault();
+    }
     
     render() {
       return (
-        <form>
+        <form onSubmit={this.handleSearchFormSubmit}>
           <div className="mb-5 row">
             <label htmlFor="songSearchInput" className="col-sm-2 form-label">Search</label>
             <br />
@@ -43,6 +48,7 @@ class SongSearchBar extends PureComponent<SongSearchBarProps, SongSearchBarState
                 />
               </div>
             </div>
+            <button type="submit">Search</button>
         </form>
       );
     }
