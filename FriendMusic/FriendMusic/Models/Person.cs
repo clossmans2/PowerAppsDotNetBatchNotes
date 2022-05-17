@@ -14,8 +14,8 @@ namespace FriendMusic.Models
 
         public Song? FavoriteSong { get; set; }
 
-        public List<Playlist> LikedPlaylists { get; set; }
+        public List<Playlist>? LikedPlaylists { get; set; }
 
-        public List<Playlist> OwnedPlaylists { get; set; }
+        public List<Playlist>? OwnedPlaylists { get; set; }
     }
 }

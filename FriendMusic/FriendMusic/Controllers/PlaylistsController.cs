@@ -82,6 +82,8 @@ namespace FriendMusic.Controllers
         // POST: api/Playlists
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult<Playlist>> PostPlaylist(Playlist playlist)
         {
             _context.Playlists.Add(playlist);
