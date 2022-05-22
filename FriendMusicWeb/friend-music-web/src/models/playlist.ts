@@ -1,14 +1,24 @@
 import Person from "./person";
-import Song from "./song";
 
-interface Playlist {
+export interface Playlist {
     Id: number;
     Title: string;
     Description: string;
     Owner: Person;
-    Songs: Song[];
-    LikedBy: Person[];
     TotalTracks: number;
 }
+
+export interface PlaylistToAdd {
+    Title: string;
+    Description: string;
+}
+
+
+export interface PlaylistToUpdate {
+    Id: number;
+    Title: string;
+    Description: string;
+}
+
 
 export default Playlist;

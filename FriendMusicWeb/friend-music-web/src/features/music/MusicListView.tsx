@@ -1,24 +1,46 @@
+import { AxiosResponse } from "axios";
 import React from "react";
-import { Nav } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
+import { Table } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import Song from "../../models/song";
+import APIService from "../../services/apiService";
 
-type MusicListViewProps = {
+type MusicListViewProps = {}
+    
+
+type MusicListViewState = {
     songs: Song[];
 }
 
-type MusicListViewState = {
-
-}
 
 class MusicListView extends React.Component<MusicListViewProps, MusicListViewState> {
+    constructor(props: MusicListViewProps) {
+        super(props);
+        this.state = {
+            songs: []
+        }
+    }
+    
+    componentDidMount() {
+        APIService.getSongs()
+          .then((response: AxiosResponse<Song[]>) => {
+            this.setState({
+              songs: response.data
+            });
+          })
+          .catch((err: Error) => {
+            console.log(err);
+          });
+      }
+    
     render(): React.ReactNode {
         return (
+            <>
             <div className="App container">
                 <div className="jumbotron">
                     <h2>Songs List</h2>
                 </div>
-                <table>
+                <Table bordered hover responsive striped>
                     <thead>
                         <tr>
                             <th>Id</th>
@@ -29,7 +51,7 @@ class MusicListView extends React.Component<MusicListViewProps, MusicListViewSta
                         </tr>
                     </thead>    
                     <tbody>
-                {this.props.songs.map( (song: Song) =>  (           
+                {this.state.songs.map( (song: Song) =>  (           
                     <React.Fragment key={song.Id}>
                       <tr id={"song-" + song.Id}>
                         <td>{song.AlbumTitle}</td>
@@ -37,17 +59,15 @@ class MusicListView extends React.Component<MusicListViewProps, MusicListViewSta
                         <td>{song.Length}</td>
                         <td>{song.Title}</td>
                         <td>
-                            <LinkContainer to={"/music/" + song.Id}>
-                                <Nav.Link></Nav.Link>
-                            </LinkContainer>
+                            <Link className="btn btn-primary" to={`${song.Id}`}>Details</Link>
                         </td>
                       </tr>
                     </React.Fragment>
                   ))};
                   </tbody>
-                </table>
+                </Table>
             </div>
-
+            </>
         );
     }
 }
